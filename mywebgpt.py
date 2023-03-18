@@ -54,14 +54,25 @@ async def make_completion(messages:List[Message], nb_retries:int=3, delay:int=30
         logger.error(f"Timeout {delay} seconds !")
     return None
 
+#async def predict(input, history):
+    """
+    Predict the response of the chatbot and complete a running list of chat history.
+    """
+    #history.append({"role": "user", "content": input})
+    #response = await make_completion(history)
+    #history.append({"role": "assistant", "content": response})
+    #messages = [(history[i]["content"], history[i+1]["content"]) for i in range(0, len(history)-1, 2)]
+    #return messages, history
+
 async def predict(input, history):
     """
     Predict the response of the chatbot and complete a running list of chat history.
     """
-    history.append({"role": "user", "content": input})
+    history= [{"role": "system", "content": "you are a helpful and nice chatbot"},{"role": "user", "content": input}]
+    # history.append({"role": "user", "content": input})
     response = await make_completion(history)
     history.append({"role": "assistant", "content": response})
-    messages = [(history[i]["content"], history[i+1]["content"]) for i in range(0, len(history)-1, 2)]
+    messages = [(history[i]["content"], history[i+1]["content"]) for i in range(1, len(history)-1, 2)]
     return messages, history
 
 """
