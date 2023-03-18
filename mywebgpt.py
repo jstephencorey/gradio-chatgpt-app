@@ -75,4 +75,4 @@ with gr.Blocks() as demo:
         txt = gr.Textbox(show_label=False, placeholder="Enter text and press enter").style(container=False)
     txt.submit(predict, [txt, state], [chatbot, state])
 
-demo.launch(server_port=8080)
+demo.launch(server_port=8080, share=True)
